@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.maxmvc.entity.Contctlist" table="contact_table" catalog="conctclist">
+        <id name="userId" type="java.lang.Integer">
+            <column name="USER_ID" />
+            <generator class="identity" />
+        </id>
+        <property name="firstName" type="string">
+            <column name="FIRST_NAME" length="20" not-null="true" unique="true" />
+        </property>
+        <property name="lastName" type="string">
+            <column name="LAST_NAME" length="20" not-null="true" unique="true" />
+        </property>
+        <property name="telNum" type="string">
+            <column name="TEL_NUM" length="20" not-null="true" unique="true" />
+        </property>
+        <property name="email" type="string">
+            <column name="EMAIL" length="50" not-null="true" unique="true" />
+        </property>
+        <property name="address" type="string">
+            <column name="ADDRESS" length="100" not-null="true" unique="true" />
+        </property>
+    </class>
+</hibernate-mapping>

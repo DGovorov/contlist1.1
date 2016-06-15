@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="dataSourceStorage">
+  <data-source name="hibernate.cfg.xml/Hibernate" uuid="75a3b018-3801-4bac-9db7-1b6956389b73">
+    <database-info product="MySQL" version="5.5.50" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.35 ( Revision: 5fb9c5849535c13917c2cf9baaece6ef9693ef27 )">
+      <extra-name-characters>#@</extra-name-characters>
+      <identifier-quote-string>`</identifier-quote-string>
+    </database-info>
+    <case-sensitivity plain-identifiers="lower" quoted-identifiers="lower"/>
+    <database-model serializer="dbm" rdbms="MYSQL" format-version="2.5">
+      <schema id="1" name="contctlist"/>
+      <table id="2" parent="1" name="contact_table"/>
+      <column id="3" parent="2" name="USER_ID">
+        <mandatory>1</mandatory>
+        <data-type>int(10) unsigned</data-type>
+        <sequence-identity>1</sequence-identity>
+      </column>
+      <column id="4" parent="2" name="FIRST_NAME">
+        <mandatory>1</mandatory>
+        <data-type>varchar(20)</data-type>
+      </column>
+      <column id="5" parent="2" name="LAST_NAME">
+        <mandatory>1</mandatory>
+        <data-type>varchar(20)</data-type>
+      </column>
+      <column id="6" parent="2" name="TEL_NUM">
+        <mandatory>1</mandatory>
+        <data-type>varchar(20)</data-type>
+      </column>
+      <column id="7" parent="2" name="EMAIL">
+        <mandatory>1</mandatory>
+        <data-type>varchar(50)</data-type>
+      </column>
+      <column id="8" parent="2" name="ADDRESS">
+        <mandatory>1</mandatory>
+        <data-type>varchar(100)</data-type>
+      </column>
+      <key id="9" parent="2" name="PRIMARY">
+        <columns>USER_ID</columns>
+        <primary>1</primary>
+      </key>
+    </database-model>
+  </data-source>
+</component>
