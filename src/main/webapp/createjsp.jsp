@@ -1,4 +1,5 @@
 <%@ page import="java.util.*" %>
+<%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <html>
 <head>
     <title>Create contact</title>
@@ -6,6 +7,7 @@
 <body>
 <h1>Enter data about contact:</h1>
 <form method="POST" action="/create">
+    <% request.setCharacterEncoding("UTF-8"); %>
     <%
         List contact = (List)request.getAttribute("name");
 

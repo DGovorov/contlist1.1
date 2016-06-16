@@ -16,6 +16,7 @@ public class ChangeContact extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
+        //resp.getAttribute("id");
 
         List result = new ArrayList();
         result.add("First name"); //test list
@@ -24,6 +25,7 @@ public class ChangeContact extends HttpServlet {
         result.add("TelNum");
         result.add("Address");
         req.setAttribute("name", result);
+        //req.setAttribute("id", result);
         req.getRequestDispatcher("changejsp.jsp").forward(req, resp);
 
     }

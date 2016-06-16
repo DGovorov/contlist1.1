@@ -16,6 +16,8 @@ import org.hibernate.Session;
 import com.maxmvc.entity.Contctlist;
 import com.maxmvc.persistence.HibernateUtil;
 
+import static com.maxmvc.model.ModelView.removeById;
+
 @WebServlet("/")
 public class MainController extends HttpServlet {
 
@@ -32,5 +34,11 @@ public class MainController extends HttpServlet {
 
     }
 
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        //resp.setContentType("text/html;charset=utf-8");
+        if (req.getParameter("action").equals("remove")) removeById(req.getParameter("id"));
 
+        resp.sendRedirect("/");
+    }
 }

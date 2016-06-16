@@ -1,12 +1,12 @@
 <%@ page import="java.util.*" %>
-
+<%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <html>
 <head>
     <title>Change contact</title>
 </head>
 <body>
 <h1>Enter new data about contact:</h1>
-<form action="/welcome">
+<form action="/">
 <%
     List contact = (List)request.getAttribute("name");
     for (Object tmpit : contact) {
@@ -17,7 +17,7 @@
 <br><input type="SUBMIT">
 </form>
 <br>
-<form>
+<% out.print("<form method=\"POST\" action=\"/?action=remove&id="+request.getParameter("id")+"\">");%>
     <input type="submit" value="Remove contact">
 </form>
 </body>

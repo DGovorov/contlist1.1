@@ -1,4 +1,5 @@
 <%@ page import="java.util.*" %>
+<%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <html>
 <head>
     <title>Contacts database</title>
@@ -6,12 +7,10 @@
 <body>
 <h1>Contact list:</h1>
 <%
-    List contacts = (List)request.getAttribute("customparam");
-    Iterator it = contacts.iterator();
+    List<String[]> contacts = (List)request.getAttribute("customparam");
 
-    while(it.hasNext()) {
-        Object tmpit = it.next();
-        out.print("<br><a href=\"/change?id=" + tmpit + "\">" + tmpit + "</a>");
+    for(String[] cont : contacts) {
+        out.print("<br><a href=\"/change?id=" + cont[0] + "\">" + cont[0] + " - " + cont[1] + "</a>");
     }
 
 %>
