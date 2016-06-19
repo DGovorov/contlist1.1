@@ -6,6 +6,7 @@
 </head>
 <body>
 <h1>Enter data about contact:</h1>
+<a href="/"><< Back to list</a>
 <form method="POST" action="/create">
     <% request.setCharacterEncoding("UTF-8"); %>
     <%

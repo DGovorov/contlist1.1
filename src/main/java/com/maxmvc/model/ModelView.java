@@ -36,4 +36,19 @@ public class ModelView {
         session.getTransaction().commit();
     }
 
+    public static String[] getContactById(Long id) {
+
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        String hql = "FROM com.maxmvc.entity.Contctlist E WHERE E.userId = "+id;
+        Query query = session.createQuery(hql);
+
+        List<Contctlist> contacts = query.list();
+        String[] rContacts = new String[6];
+        for (Contctlist cont : contacts){
+            rContacts = new String[] {cont.getUserId().toString(), cont.getFirstName(), cont.getLastName(), cont.getTelNum(), cont.getEmail(), cont.getAddress()};
+        }
+        return(rContacts);
+    }
+
 }
