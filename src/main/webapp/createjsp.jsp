@@ -18,7 +18,8 @@
         }
     %>
 
-<br><input type="SUBMIT">
+    <br>
+    <input type="SUBMIT">
 </form>
 <br>
 </body>
