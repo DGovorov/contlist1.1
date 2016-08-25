@@ -10,6 +10,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class ModelView {
+
     public List getContacts() {
 
         Session session = HibernateUtil.getSessionFactory().openSession();
