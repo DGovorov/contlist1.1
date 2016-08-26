@@ -6,6 +6,7 @@
 <%@ page import="com.google.gson.JsonArray" %>
 <%@ page import="com.google.gson.JsonElement" %>
 <%@ page import="com.auth.AuthChecker" %>
+<%@ page import="com.auth.VkAuthHelper" %>
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
 <html>
 <head>
@@ -51,6 +52,12 @@
                     "</form>");
 
         out.println(message);
+
+
+        VkAuthHelper vktest = new VkAuthHelper();
+        out.println(vktest.buildLoginUrl());
+        out.println(vktest.accessTokenUri(request.getParameter("code")));
+
     %>
 
 </div>

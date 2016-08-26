@@ -21,7 +21,7 @@
             <column name="EMAIL" length="50" not-null="true" unique="true" />
         </property>
         <property name="address" type="string">
-            <column name="ADDRESS" length="100" not-null="true" unique="true" />
+            <column name="ADDRESS" length="300" not-null="true" unique="true" />
         </property>
     </class>
 </hibernate-mapping>
