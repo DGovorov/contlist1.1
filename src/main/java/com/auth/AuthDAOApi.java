@@ -1,7 +1,7 @@
 package com.auth;
 
 
-public interface AuthDBApi {
+public interface AuthDAOApi {
 
     /*
     * API for Oauth2 authorisation process

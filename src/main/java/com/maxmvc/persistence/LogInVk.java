@@ -12,11 +12,11 @@ import java.io.IOException;
 /**
  * Created by Максим on 13.08.2016.
  */
-@WebServlet("/login")
-public class LogIn extends HttpServlet {
+@WebServlet("/login/vk")
+public class LogInVk extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         final AuthChecker checker = new AuthChecker();
-        checker.logIn(resp);
+        checker.logInVk(resp);
     }
 }

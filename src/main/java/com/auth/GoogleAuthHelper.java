@@ -11,6 +11,8 @@ import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson.JacksonFactory;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import java.io.IOException;
 import java.security.SecureRandom;
@@ -83,5 +85,18 @@ public final class GoogleAuthHelper {
 
         return jsonIdentity;
 
+    }
+
+    public String[] getUserDataGoogle(String code, GoogleAuthHelper googleHelper) throws IOException {
+
+        String respEmail = googleHelper.getUserInfoJson(code);
+        JsonParser parser = new JsonParser();
+
+        JsonObject mainObject = parser.parse(respEmail).getAsJsonObject();
+        String parseemail = mainObject.get("email").getAsString();
+        String parsename = mainObject.get("given_name").getAsString();
+        String parselastname = mainObject.get("family_name").getAsString();
+
+        return new String[]{parseemail, parsename, parselastname};
     }
 }

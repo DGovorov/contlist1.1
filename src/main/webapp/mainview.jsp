@@ -1,12 +1,7 @@
 <%@ page import="java.util.*" %>
-<%@ page import="com.auth.GoogleAuthHelper" %>
-<%@ page import="com.maxmvc.model.CreateContDb" %>
-<%@ page import="com.google.gson.JsonParser" %>
-<%@ page import="com.google.gson.JsonObject" %>
-<%@ page import="com.google.gson.JsonArray" %>
-<%@ page import="com.google.gson.JsonElement" %>
+
 <%@ page import="com.auth.AuthChecker" %>
-<%@ page import="com.auth.VkAuthHelper" %>
+
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
 <html>
 <head>
@@ -42,21 +37,22 @@
 
         String message = checker.AuthMessageMainPage(authout, session, request);
 
-        if (!authout)
-            out.println("<form method=\"get\" name=\"google\" action=\"/login\">" +
+        if (!authout) {
+            out.println("<form method=\"get\" name=\"google\" action=\"/login/google\">" +
                     "<button type=\"submit\">Login with Google</button>" +
                     "</form>");
+            out.println("<form method=\"get\" name=\"vk\" action=\"/login/vk\">" +
+                    "<button type=\"submit\">Login with Vkontakte</button>" +
+                    "</form>");
+        }
         else
             out.println("<form method=\"get\" action=\"/logout\">"+
                     "<button type=\"submit\">Log out</button>"+
                     "</form>");
 
+
         out.println(message);
 
-
-        VkAuthHelper vktest = new VkAuthHelper();
-        out.println(vktest.buildLoginUrl());
-        out.println(vktest.accessTokenUri(request.getParameter("code")));
 
     %>
 
