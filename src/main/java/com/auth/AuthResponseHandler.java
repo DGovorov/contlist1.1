@@ -15,10 +15,11 @@ public class AuthResponseHandler {
 
     public static final String CODECOOKIENAME = "pdbcode";
     public static final String EMAILCOOKIENAME = "pdbemail";
+    public static final String CODESESSIONNAME = "pdbcode";
+    public static final String EMAILSESSIONNAME = "pdbemail";
+
 
     public void handleOauthResponse(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws IOException {
-
-
 
         final AuthDAO authDAO = new AuthDAO();
 
@@ -33,6 +34,11 @@ public class AuthResponseHandler {
         if (state.startsWith("vk")) {
             final VkAuthHelper vkHelper = new VkAuthHelper();
             userData = vkHelper.getUserDataVk(code, vkHelper);
+        }
+
+        if (state.startsWith("fb")) {
+            final FbAuthHelper fbHelper = new FbAuthHelper();
+            userData = fbHelper.getUserDataFb(code, fbHelper);
         }
 
         String parseemail = userData[0];
@@ -53,15 +59,8 @@ public class AuthResponseHandler {
         }
         if (!emailmatch) {
             authDAO.createOauthUser(parsename, parselastname, parseemail, securecode, state);
-         /*if (state.startsWith("google"))
-         response.sendRedirect(googleHelper.buildLoginUrl());
-         if (state.startsWith("vk"))
-         response.sendRedirect(vkHelper.buildLoginUrl());*/
-         /*if (state.startsWith("fb"))
-         userData = getUserDataFb(state, code, fbHelper);*/
         }
     }
-
 
     private String secureCodeGenerate(HttpServletRequest req) {
         String ip = req.getHeader("X-FORWARDED-FOR");
@@ -73,20 +72,15 @@ public class AuthResponseHandler {
     }
 
     public void setcookies(HttpServletResponse resp, String email, String code) {
-        //String cleancode = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.73 Safari/537.36Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.73 Safari/537.36";
         Cookie codecookie = new Cookie(CODECOOKIENAME, code);
-        //codecookie.setSecure(true);
-        //codecookie.setDomain(DOMAINNAME);
         resp.addCookie(codecookie);
         Cookie emailcookie = new Cookie(EMAILCOOKIENAME, email);
-        //emailcookie.setSecure(true);
-        //emailcookie.setDomain(DOMAINNAME);
         resp.addCookie(emailcookie);
     }
 
     public void setsession(HttpSession session, String email, String code) {
-        session.setAttribute("email", email);
-        session.setAttribute("code", code);
+        session.setAttribute(EMAILSESSIONNAME, email);
+        session.setAttribute(CODESESSIONNAME, code);
     }
 
     public List<Cookie> checkcookies(HttpServletRequest req) {

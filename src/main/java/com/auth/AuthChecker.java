@@ -12,11 +12,12 @@ public final class AuthChecker {
 
     private static final String DOMAINNAME = "localhost:8080";
 
-    private static final String CODESESSIONNAME = "pdbcode";
-    private static final String EMAILSESSIONNAME = "pdbemail";
 
     final AuthResponseHandler authHandler = new AuthResponseHandler();
     final AuthDAO authDAO = new AuthDAO();
+
+    private String CODESESSIONNAME = authHandler.CODESESSIONNAME;
+    private String EMAILSESSIONNAME = authHandler.EMAILSESSIONNAME;
 
     public AuthChecker() {
 
@@ -41,20 +42,24 @@ public final class AuthChecker {
                 }
         }
 
-        if ((session.getAttribute("code") == null) || (session.getAttribute("email") == null))
+        handleCallback(session,request,response);
+
+        if ((session.getAttribute(CODESESSIONNAME) == null) || (session.getAttribute(EMAILSESSIONNAME) == null)) {
+            auth = false;
+        }
+
+        if ((session.getAttribute(CODESESSIONNAME) != null) && (session.getAttribute(EMAILSESSIONNAME) != null)) {
+            auth = true;
+        }
+        return auth;
+    }
+
+    public void handleCallback(HttpSession session, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        if ((session.getAttribute(CODESESSIONNAME) == null) || (session.getAttribute(EMAILSESSIONNAME) == null))
             if ((request.getParameter("code") != null) && (request.getParameter("state") != null)) {
 
                 authHandler.handleOauthResponse(request, response, session);
             }
-
-        if ((session.getAttribute("code") == null) || (session.getAttribute("email") == null)) {
-            auth = false;
-        }
-
-        if ((session.getAttribute("code") != null) && (session.getAttribute("email") != null)) {
-            auth = true;
-        }
-        return auth;
     }
 
     public String AuthMessageMainPage(Boolean auth, HttpSession session, HttpServletRequest req) throws UnknownHostException {
@@ -79,7 +84,7 @@ public final class AuthChecker {
                     + "Email in cookies - " + curCookieEm + "<br>"
                     + "Code in cookies - " + curCookieCo;
         if (auth)
-            message = "Authorised as " + session.getAttribute("email") + "<br>"
+            message = "Authorised as " + session.getAttribute(EMAILSESSIONNAME) + "<br>"
                     + "UserAgent - " + req.getHeader("User-Agent") + "<br>"
                     + "IP - " + ip + "<br>"
                     + "Email in cookies - " + curCookieEm + "<br>"
@@ -88,8 +93,8 @@ public final class AuthChecker {
     }
 
     public void logOut(HttpSession session, HttpServletRequest req, HttpServletResponse resp) {
-        session.removeAttribute("code");
-        session.removeAttribute("email");
+        session.removeAttribute(CODESESSIONNAME);
+        session.removeAttribute(EMAILSESSIONNAME);
         Cookie cookies[] = req.getCookies();
         Boolean emRemoved = false;
         Boolean coRemoved = false;
@@ -121,4 +126,8 @@ public final class AuthChecker {
     }
 
 
+    public void logInFb(HttpServletResponse response) throws IOException {
+        final FbAuthHelper helper = new FbAuthHelper();
+        response.sendRedirect(helper.getFBAuthUrl());
+    }
 }

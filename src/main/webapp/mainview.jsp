@@ -44,6 +44,9 @@
             out.println("<form method=\"get\" name=\"vk\" action=\"/login/vk\">" +
                     "<button type=\"submit\">Login with Vkontakte</button>" +
                     "</form>");
+            out.println("<form method=\"get\" name=\"fb\" action=\"/login/fb\">" +
+                    "<button type=\"submit\">Login with Facebook</button>" +
+                    "</form>");
         }
         else
             out.println("<form method=\"get\" action=\"/logout\">"+
